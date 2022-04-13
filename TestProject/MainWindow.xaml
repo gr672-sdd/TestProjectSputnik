@@ -1,0 +1,93 @@
+﻿<Window x:Class="TestProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestProject"
+        Title="MainWindow" Height="450" Width="1000">
+    <Grid>
+        <TabControl Name="StorageControl">
+            <TabItem Name="ReceiptControl" Header="Поступившие товары">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="157*"/>
+                        <ColumnDefinition Width="340*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Name="StorageReceiptList" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название склада" Binding="{Binding NameStorage}"/>
+                            <DataGridTextColumn Header="Наименование Товара" Binding="{Binding NameProduct}"/>
+                            <DataGridTextColumn Header="Количество товара. шт" Binding="{Binding QuentityProduct}"/>
+                            <DataGridTextColumn Header="Масса 1 шт. кг" Binding="{Binding Weighst}"/>
+                            <DataGridTemplateColumn Header="Хрупкое да/нет">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Name="TrueBlock" Text=""/>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger  Binding ="{Binding Fragile}" Value ="False">
+                                                <Setter TargetName="TrueBlock" Property="Text" Value="нет"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding ="{Binding Fragile}" Value ="True">
+                                                <Setter TargetName="TrueBlock" Property="Text" Value="да"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Дата поступления на склад" Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Name="ShipmentControl" Header="Отгруженные товары">
+                <Grid>
+                    <DataGrid Name="StorageShipmentList" Grid.Row="1" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название склада" Binding="{Binding NameStorage}"/>
+                            <DataGridTextColumn Header="Наименование Товара" Binding="{Binding NameProduct}"/>
+                            <DataGridTextColumn Header="Количество товара. шт" Binding="{Binding QuentityProduct}"/>
+                            <DataGridTextColumn Header="Масса 1 шт. кг" Binding="{Binding Weighst}"/>
+                            <DataGridTemplateColumn Header="Хрупкое да/нет">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Name="TrueBlock" Text=""/>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger  Binding ="{Binding Fragile}" Value ="False">
+                                                <Setter TargetName="TrueBlock" Property="Text" Value="нет"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding ="{Binding Fragile}" Value ="True">
+                                                <Setter TargetName="TrueBlock" Property="Text" Value="да"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Дата поступления на склад" Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Name="BalancesControl" Header="Запасы товаров">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.09*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Name="SaveButton" Grid.Column="1" Content="Скачать" Click="SaveButton_Click"/>
+                    <DatePicker Name="DateBalancesDatePicker" SelectedDateChanged="DateBalancesDatePicker_SelectedDateChanged" SelectedDateFormat="Short" DisplayDate="01/01/2021" DisplayDateStart="01/01/2021" DisplayDateEnd="01/01/2030" FirstDayOfWeek="Monday" Grid.Row="0"/>
+                    <DataGrid Name="StorageBalancesList" Grid.Row="1" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Наименование Товара" Binding="{Binding NameProduct}"/>
+                            <DataGridTextColumn Header="Количество товара. шт" Binding="{Binding QuentityProduct}"/>
+                            <DataGridTextColumn Header="Масса всего, кг" Binding="{Binding Weighst}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
